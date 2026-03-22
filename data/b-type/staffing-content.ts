@@ -2,6 +2,8 @@ import { ContentSection, TermDefinition, RequirementItem } from "@/lib/types";
 import { PracticeItem } from "@/components/learn/PracticeGuide";
 import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { RevenueItem } from "@/components/learn/RevenueTable";
+import { ComparisonData } from "@/components/learn/KasanComparisonCard";
+import { SimulationData } from "@/components/learn/RevenueSimulator";
 
 // ===== 思想・背景 =====
 
@@ -264,3 +266,49 @@ export const staffingPractice: PracticeItem[] = [
     color: "border-purple-400",
   },
 ];
+
+// ===== ビジュアル: 段階比較 =====
+
+export const staffingComparisons: ComparisonData[] = [
+  {
+    heading: "人員配置と加算の関係",
+    groups: [
+      {
+        title: "職員配置比率",
+        items: [
+          { label: "基準配置", value: 0, unit: "単位", note: "7.5:1（最低ライン）" },
+          { label: "人員配置体制加算(I)", value: 36, unit: "単位/日", note: "6:1配置", highlight: true },
+        ],
+      },
+      {
+        title: "福祉専門職員配置等加算",
+        items: [
+          { label: "(I) 有資格者35%以上", value: 15, unit: "単位/日", highlight: true },
+          { label: "(II) 有資格者25%以上", value: 10, unit: "単位/日" },
+          { label: "(III) 常勤率75%以上", value: 6, unit: "単位/日" },
+        ],
+      },
+      {
+        title: "目標工賃達成指導員配置加算（定員別）",
+        items: [
+          { label: "定員20人以下", value: 82, unit: "単位/日", highlight: true },
+          { label: "定員21〜40人", value: 50, unit: "単位/日" },
+          { label: "定員41〜60人", value: 32, unit: "単位/日" },
+        ],
+      },
+    ],
+  },
+];
+
+// ===== ビジュアル: 収益シミュレーション =====
+
+export const staffingSimulation: SimulationData = {
+  heading: "人員配置加算の月間収益シミュレーション",
+  assumptions: "定員20人・月22日稼働・地域単価10円で試算",
+  items: [
+    { name: "目標工賃達成指導員配置加算", unitPerDay: 82, monthlyAmount: 36.1, color: "violet" },
+    { name: "人員配置体制加算(I)", unitPerDay: 36, monthlyAmount: 15.8, color: "blue" },
+    { name: "福祉専門職員配置等加算(I)", unitPerDay: 15, monthlyAmount: 6.6, color: "indigo" },
+    { name: "福祉専門職員配置等加算(III)", unitPerDay: 6, monthlyAmount: 2.6, color: "teal" },
+  ],
+};

@@ -2,6 +2,8 @@ import { ContentSection, TermDefinition, RequirementItem } from "@/lib/types";
 import { PracticeItem } from "@/components/learn/PracticeGuide";
 import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { RevenueItem } from "@/components/learn/RevenueTable";
+import { TimelineData } from "@/components/learn/DailyTimeline";
+import { SimulationData } from "@/components/learn/RevenueSimulator";
 
 // ===== 思想・背景 =====
 
@@ -329,3 +331,62 @@ export const dailySupportPractice: PracticeItem[] = [
     color: "border-gray-400",
   },
 ];
+
+// ===== ビジュアル: 1日のタイムライン =====
+
+export const dailySupportTimeline: TimelineData = {
+  heading: "B型事業所の1日と加算の発生ポイント",
+  description: "利用者の1日の流れに沿って、どの場面でどの加算が発生するかを確認しましょう",
+  slots: [
+    {
+      time: "9:00",
+      label: "送迎（迎え）",
+      color: "green",
+      additions: ["送迎加算(I) 21単位", "送迎加算(II) 10単位"],
+    },
+    {
+      time: "9:30",
+      label: "朝礼・作業",
+      color: "blue",
+      additions: ["基本報酬"],
+    },
+    {
+      time: "12:00",
+      label: "昼食",
+      color: "amber",
+      additions: ["食事提供体制加算 30単位"],
+    },
+    {
+      time: "13:00",
+      label: "午後作業",
+      color: "blue",
+      additions: ["基本報酬"],
+    },
+    {
+      time: "15:30",
+      label: "送迎（送り）",
+      color: "green",
+      additions: ["送迎加算(I) 21単位"],
+    },
+  ],
+  alwaysActive: [
+    "処遇改善加算（基本報酬の%）",
+    "初期加算（利用開始30日以内: 30単位/日）",
+    "欠席時対応加算（欠席者: 94単位/日）",
+    "利用者負担上限額管理加算（該当者: 150単位/月）",
+  ],
+};
+
+// ===== ビジュアル: 収益シミュレーション =====
+
+export const dailySupportSimulation: SimulationData = {
+  heading: "生活支援等の加算 月間収益シミュレーション",
+  assumptions: "定員20人・月22日稼働・地域単価10円・送迎往復で試算",
+  items: [
+    { name: "処遇改善加算(I) 8.4%", unitPerDay: 52, monthlyAmount: 22.9, color: "violet" },
+    { name: "送迎加算(I) 往復", unitPerDay: 42, monthlyAmount: 18.5, color: "emerald" },
+    { name: "食事提供体制加算", unitPerDay: 30, monthlyAmount: 13.2, color: "amber" },
+    { name: "欠席時対応加算（月4回×5人）", unitPerDay: 0, monthlyAmount: 1.9, color: "rose" },
+    { name: "利用者負担上限額管理加算（5人）", unitPerDay: 0, monthlyAmount: 0.8, color: "teal" },
+  ],
+};

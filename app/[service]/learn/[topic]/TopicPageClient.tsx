@@ -7,9 +7,12 @@ import RequirementTable from "@/components/learn/RequirementTable";
 import PhilosophyBlock from "@/components/learn/PhilosophyBlock";
 import PracticeGuide from "@/components/learn/PracticeGuide";
 import RevenueTable from "@/components/learn/RevenueTable";
+import KasanComparisonCard from "@/components/learn/KasanComparisonCard";
+import DailyTimeline from "@/components/learn/DailyTimeline";
+import RevenueSimulator from "@/components/learn/RevenueSimulator";
 import { getTopicContent, TopicContent } from "@/data/content-loader";
 import { getService } from "@/data/services";
-import { getServiceColors, ServiceColorSet } from "@/lib/service-colors";
+import { getServiceColors } from "@/lib/service-colors";
 
 type Props = {
   serviceId: string;
@@ -60,11 +63,22 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
         colors={colors}
       />
 
+      {/* ビジュアル: タイムライン（あれば思想の直後に表示） */}
+      {content.timeline && <DailyTimeline data={content.timeline} />}
+
       {content.sections.map((section) => (
         <SectionBlock key={section.title} title={section.title} colors={colors}>
           <p>{section.content}</p>
         </SectionBlock>
       ))}
+
+      {/* ビジュアル: 段階比較カード */}
+      {content.comparisons && content.comparisons.map((comp) => (
+        <KasanComparisonCard key={comp.heading} data={comp} />
+      ))}
+
+      {/* ビジュアル: 収益シミュレーション */}
+      {content.simulation && <RevenueSimulator data={content.simulation} />}
 
       {content.revenue && content.revenue.length > 0 && (
         <SectionBlock title="収益インパクトと取得難易度" colors={colors}>

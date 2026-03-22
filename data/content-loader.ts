@@ -1,4 +1,7 @@
 import type { ContentSection, TermDefinition, RequirementItem } from "@/lib/types";
+import type { ComparisonData } from "@/components/learn/KasanComparisonCard";
+import type { TimelineData } from "@/components/learn/DailyTimeline";
+import type { SimulationData } from "@/components/learn/RevenueSimulator";
 
 export type PhilosophyData = {
   heading: string;
@@ -30,11 +33,13 @@ export type TopicContent = {
   requirements?: RequirementItem[];
   revenue?: RevenueItem[];
   practice?: PracticeItem[];
+  comparisons?: ComparisonData[];
+  timeline?: TimelineData;
+  simulation?: SimulationData;
 };
 
-type ContentModule = {
-  [key: string]: PhilosophyData | ContentSection[] | TermDefinition[] | RequirementItem[] | RevenueItem[] | PracticeItem[];
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ContentModule = Record<string, any>;
 
 const contentCache = new Map<string, TopicContent>();
 
@@ -57,6 +62,9 @@ export async function getTopicContent(service: string, topic: string): Promise<T
       requirements: mod[`${prefix}Requirements`] as RequirementItem[] | undefined,
       revenue: mod[`${prefix}Revenue`] as RevenueItem[] | undefined,
       practice: mod[`${prefix}Practice`] as PracticeItem[] | undefined,
+      comparisons: mod[`${prefix}Comparisons`] as ComparisonData[] | undefined,
+      timeline: mod[`${prefix}Timeline`] as TimelineData | undefined,
+      simulation: mod[`${prefix}Simulation`] as SimulationData | undefined,
     };
 
     contentCache.set(key, content);
