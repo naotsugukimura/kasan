@@ -2,6 +2,8 @@ import { ContentSection, TermDefinition, RequirementItem } from "@/lib/types";
 import { PracticeItem } from "@/components/learn/PracticeGuide";
 import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { RevenueItem } from "@/components/learn/RevenueTable";
+import { ComparisonData } from "@/components/learn/KasanComparisonCard";
+import { SimulationData } from "@/components/learn/RevenueSimulator";
 
 // ===== 思想・背景 =====
 
@@ -311,3 +313,47 @@ export const performancePractice: PracticeItem[] = [
     color: "border-emerald-400",
   },
 ];
+
+// ===== ビジュアル: 実績系加算の比較 =====
+
+export const performanceComparisons: ComparisonData[] = [
+  {
+    heading: "実績・工賃系加算の単位数比較",
+    groups: [
+      {
+        title: "目標工賃達成加算（前年度実績で判定）",
+        items: [
+          { label: "(I) 工賃向上", value: 39, unit: "単位/日", note: "前年度実績が前々年度を超過", highlight: true },
+          { label: "(II) 目標達成", value: 21, unit: "単位/日", note: "工賃向上計画の目標額を達成" },
+        ],
+      },
+      {
+        title: "就労移行支援体制加算（一般就労への移行実績）",
+        items: [
+          { label: "(I) 定員20人以下", value: 26, unit: "単位/日", note: "6か月以上定着者あり", highlight: true },
+          { label: "(II) 定員21〜40人", value: 13, unit: "単位/日", note: "6か月以上定着者あり" },
+        ],
+      },
+      {
+        title: "地域協働加算・施設外就労加算",
+        items: [
+          { label: "地域協働加算", value: 30, unit: "単位/日", note: "地域との協働活動を実施", highlight: true },
+          { label: "施設外就労加算", value: 100, unit: "単位/日", note: "企業現場での就労+職員同行", highlight: true },
+        ],
+      },
+    ],
+  },
+];
+
+// ===== ビジュアル: 収益シミュレーション =====
+
+export const performanceSimulation: SimulationData = {
+  heading: "実績系加算の月間収益シミュレーション",
+  assumptions: "定員20人・月22日稼働・地域単価10円で試算",
+  items: [
+    { name: "施設外就労加算（対象5人）", unitPerDay: 100, monthlyAmount: 11.0, color: "emerald" },
+    { name: "目標工賃達成加算(I)", unitPerDay: 39, monthlyAmount: 17.2, color: "amber" },
+    { name: "地域協働加算", unitPerDay: 30, monthlyAmount: 13.2, color: "blue" },
+    { name: "就労移行支援体制加算(I)（定着1人）", unitPerDay: 26, monthlyAmount: 11.4, color: "indigo" },
+  ],
+};

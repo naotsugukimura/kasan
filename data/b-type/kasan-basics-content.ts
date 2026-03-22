@@ -1,5 +1,7 @@
 import { ContentSection, TermDefinition } from "@/lib/types";
 import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
+import { ComparisonData } from "@/components/learn/KasanComparisonCard";
+import { SimulationData } from "@/components/learn/RevenueSimulator";
 
 // ===== 思想・背景 =====
 
@@ -147,3 +149,40 @@ export const kasanBasicsTerms: TermDefinition[] = [
       "令和6年度新設の報酬体系。地域協働加算の届出を前提とし、工賃額によらず一律の基本報酬を適用する。重度者の多い事業所に適した体系。",
   },
 ];
+
+// ===== ビジュアル: 工賃段階別基本報酬の比較 =====
+
+export const kasanBasicsComparisons: ComparisonData[] = [
+  {
+    heading: "平均工賃月額と基本報酬（定員21〜40人の場合）",
+    groups: [
+      {
+        title: "工賃が高いほど基本報酬が高い段階設計",
+        items: [
+          { label: "4.5万円以上", value: 702, unit: "単位/日", highlight: true },
+          { label: "3.5〜4.5万円", value: 672, unit: "単位/日" },
+          { label: "2.5〜3.5万円", value: 649, unit: "単位/日" },
+          { label: "2〜2.5万円", value: 636, unit: "単位/日" },
+          { label: "1.5〜2万円", value: 618, unit: "単位/日" },
+          { label: "1〜1.5万円", value: 597, unit: "単位/日" },
+          { label: "5千〜1万円", value: 576, unit: "単位/日" },
+          { label: "5千円未満", value: 556, unit: "単位/日" },
+        ],
+      },
+    ],
+  },
+];
+
+// ===== ビジュアル: 報酬構造シミュレーション =====
+
+export const kasanBasicsSimulation: SimulationData = {
+  heading: "B型事業所の月間報酬シミュレーション（全体像）",
+  assumptions: "定員20人・月22日稼働・工賃月額1.5〜2万円（618単位）・地域単価10円",
+  items: [
+    { name: "基本報酬", unitPerDay: 618, monthlyAmount: 271.9, color: "blue" },
+    { name: "人員配置関連加算", unitPerDay: 118, monthlyAmount: 51.9, color: "indigo" },
+    { name: "支援体制加算", unitPerDay: 32, monthlyAmount: 14.1, color: "cyan" },
+    { name: "実績・工賃加算", unitPerDay: 30, monthlyAmount: 13.2, color: "amber" },
+    { name: "生活支援等加算", unitPerDay: 102, monthlyAmount: 44.9, color: "emerald" },
+  ],
+};

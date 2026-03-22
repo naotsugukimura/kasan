@@ -2,6 +2,7 @@ import { ContentSection, TermDefinition, RequirementItem } from "@/lib/types";
 import { PracticeItem } from "@/components/learn/PracticeGuide";
 import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { RevenueItem } from "@/components/learn/RevenueTable";
+import { ComparisonData } from "@/components/learn/KasanComparisonCard";
 
 // ===== 思想・背景 =====
 
@@ -278,5 +279,36 @@ export const supportSystemPractice: PracticeItem[] = [
       "ピアサポーター自身のセルフケア体制の確保",
     ],
     color: "border-green-400",
+  },
+];
+
+// ===== ビジュアル: 医療連携体制加算の段階比較 =====
+
+export const supportSystemComparisons: ComparisonData[] = [
+  {
+    heading: "医療連携体制加算の4段階",
+    groups: [
+      {
+        title: "対応レベルが上がるほど高単位",
+        items: [
+          { label: "(I) 健康管理", value: 32, unit: "単位/日", note: "看護職員が訪問し健康管理" },
+          { label: "(II) 看護提供", value: 63, unit: "単位/日", note: "看護職員が訪問し看護を実施" },
+          { label: "(III) 医療的ケア", value: 125, unit: "単位/日", note: "喀痰吸引等の医療的ケア", highlight: true },
+          { label: "(IV) 高度な医療的ケア", value: 800, unit: "単位/日", note: "医療的ケア判定スコアが高い方", highlight: true },
+        ],
+      },
+    ],
+  },
+  {
+    heading: "重度者支援体制加算の比較",
+    groups: [
+      {
+        title: "障害支援区分4以上の利用者割合で判定",
+        items: [
+          { label: "(I) 50%以上", value: 36, unit: "単位/日", highlight: true },
+          { label: "(II) 25%以上", value: 26, unit: "単位/日" },
+        ],
+      },
+    ],
   },
 ];
