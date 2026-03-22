@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SectionBlock from "@/components/learn/SectionBlock";
+import CollapsibleSection from "@/components/learn/CollapsibleSection";
 import TermGrid from "@/components/learn/TermGrid";
 import RequirementTable from "@/components/learn/RequirementTable";
 import PhilosophyBlock from "@/components/learn/PhilosophyBlock";
@@ -52,10 +53,13 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
     );
   }
 
+  const hasVisuals = content.timeline || (content.comparisons && content.comparisons.length > 0) || content.simulation;
+
   return (
     <>
       <h1 className="text-2xl sm:text-3xl font-bold mb-6">{topicLabel}</h1>
 
+      {/* 1. 思想（コンパクトに） */}
       <PhilosophyBlock
         heading={content.philosophy.heading}
         lead={content.philosophy.lead}
@@ -63,35 +67,32 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
         colors={colors}
       />
 
-      {/* ビジュアル: タイムライン（あれば思想の直後に表示） */}
-      {content.timeline && <DailyTimeline data={content.timeline} />}
+      {/* 2. ビジュアルセクション（最初にイメージを掴ませる） */}
+      {hasVisuals && (
+        <div className="mb-8">
+          {content.timeline && <DailyTimeline data={content.timeline} />}
+          {content.comparisons && content.comparisons.map((comp) => (
+            <KasanComparisonCard key={comp.heading} data={comp} />
+          ))}
+          {content.simulation && <RevenueSimulator data={content.simulation} />}
+        </div>
+      )}
 
-      {content.sections.map((section) => (
-        <SectionBlock key={section.title} title={section.title} colors={colors}>
-          <p>{section.content}</p>
-        </SectionBlock>
-      ))}
-
-      {/* ビジュアル: 段階比較カード */}
-      {content.comparisons && content.comparisons.map((comp) => (
-        <KasanComparisonCard key={comp.heading} data={comp} />
-      ))}
-
-      {/* ビジュアル: 収益シミュレーション */}
-      {content.simulation && <RevenueSimulator data={content.simulation} />}
-
+      {/* 3. 収益テーブル（ビジュアルの直後に実務情報） */}
       {content.revenue && content.revenue.length > 0 && (
         <SectionBlock title="収益インパクトと取得難易度" colors={colors}>
           <RevenueTable items={content.revenue} />
         </SectionBlock>
       )}
 
+      {/* 4. 算定要件（2カラムグリッドで見やすく） */}
       {content.requirements && content.requirements.length > 0 && (
         <SectionBlock title="算定要件まとめ" colors={colors}>
           <RequirementTable items={content.requirements} />
         </SectionBlock>
       )}
 
+      {/* 5. 実践ガイド */}
       {content.practice && content.practice.length > 0 && (
         <SectionBlock title="条件・記録・支援の実践ガイド" colors={colors}>
           <p className="text-sm text-gray-600 mb-4">
@@ -101,6 +102,24 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
         </SectionBlock>
       )}
 
+      {/* 6. 詳細解説（折りたたみ式で長文を隠す） */}
+      {content.sections.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-base font-bold text-gray-900 mb-3">詳細解説</h2>
+          {content.sections.map((section, i) => (
+            <CollapsibleSection
+              key={section.title}
+              title={section.title}
+              colors={colors}
+              defaultOpen={i === 0}
+            >
+              <p>{section.content}</p>
+            </CollapsibleSection>
+          ))}
+        </div>
+      )}
+
+      {/* 7. 用語集（最後に参照用） */}
       <SectionBlock title="主要用語" colors={colors}>
         <TermGrid terms={content.terms} colors={colors} />
       </SectionBlock>
