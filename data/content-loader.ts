@@ -2,6 +2,9 @@ import type { ContentSection, TermDefinition, RequirementItem } from "@/lib/type
 import type { ComparisonData } from "@/components/learn/KasanComparisonCard";
 import type { TimelineData } from "@/components/learn/DailyTimeline";
 import type { SimulationData } from "@/components/learn/RevenueSimulator";
+import type { CalendarData } from "@/components/learn/KasanCalendar";
+import type { StaffingMapData } from "@/components/learn/StaffingMap";
+import type { DocumentFlowData } from "@/components/learn/DocumentFlow";
 
 export type PhilosophyData = {
   heading: string;
@@ -36,6 +39,9 @@ export type TopicContent = {
   comparisons?: ComparisonData[];
   timeline?: TimelineData;
   simulation?: SimulationData;
+  calendar?: CalendarData;
+  staffingMap?: StaffingMapData;
+  documentFlow?: DocumentFlowData;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,6 +71,9 @@ export async function getTopicContent(service: string, topic: string): Promise<T
       comparisons: mod[`${prefix}Comparisons`] as ComparisonData[] | undefined,
       timeline: mod[`${prefix}Timeline`] as TimelineData | undefined,
       simulation: mod[`${prefix}Simulation`] as SimulationData | undefined,
+      calendar: mod[`${prefix}Calendar`] as CalendarData | undefined,
+      staffingMap: mod[`${prefix}StaffingMap`] as StaffingMapData | undefined,
+      documentFlow: mod[`${prefix}DocumentFlow`] as DocumentFlowData | undefined,
     };
 
     contentCache.set(key, content);

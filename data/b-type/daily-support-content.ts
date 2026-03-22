@@ -4,6 +4,7 @@ import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { RevenueItem } from "@/components/learn/RevenueTable";
 import { TimelineData } from "@/components/learn/DailyTimeline";
 import { SimulationData } from "@/components/learn/RevenueSimulator";
+import { CalendarData } from "@/components/learn/KasanCalendar";
 
 // ===== 思想・背景 =====
 
@@ -513,5 +514,50 @@ export const dailySupportSimulation: SimulationData = {
     { name: "食事提供体制加算", unitPerDay: 30, monthlyAmount: 13.2, color: "amber" },
     { name: "欠席時対応加算（月4回x5人）", unitPerDay: 0, monthlyAmount: 1.9, color: "rose" },
     { name: "利用者負担上限額管理加算（5人）", unitPerDay: 0, monthlyAmount: 0.8, color: "teal" },
+  ],
+};
+
+// ===== ビジュアル: 年間スケジュール（いつ何をするか） =====
+
+export const dailySupportCalendar: CalendarData = {
+  heading: "加算に関する年間スケジュール",
+  description: "いつ・何の手続きが必要か。忘れると減算や算定漏れにつながるので要注意",
+  events: [
+    {
+      timing: "毎年4月",
+      label: "体制届の提出・更新",
+      additions: ["各加算の体制届", "処遇改善加算の計画書", "前年度の工賃実績に基づく基本報酬区分の確認"],
+      color: "blue",
+    },
+    {
+      timing: "毎年4月",
+      label: "減算回避の確認",
+      additions: ["BCP策定の確認", "虐待防止委員会の設置確認", "情報公表システムへの報告", "身体拘束廃止の取り組み確認"],
+      color: "rose",
+    },
+    {
+      timing: "毎月10日まで",
+      label: "国保連への請求",
+      additions: ["請求明細書の提出", "サービス提供実績記録票", "加算のサービスコード確認"],
+      color: "green",
+    },
+    {
+      timing: "毎月",
+      label: "加算の継続的な記録",
+      additions: ["送迎記録", "食事提供記録", "欠席時対応記録", "訪問支援記録"],
+      color: "amber",
+    },
+    {
+      timing: "年2回以上",
+      label: "委員会・研修の実施",
+      additions: ["虐待防止委員会", "身体拘束廃止委員会", "BCP訓練（年1回以上）"],
+      color: "violet",
+    },
+    {
+      timing: "年度末（3月）",
+      label: "実績報告の提出",
+      additions: ["処遇改善加算の実績報告書", "工賃向上計画の振り返り", "翌年度の体制届準備"],
+      color: "rose",
+    },
   ],
 };

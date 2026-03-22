@@ -2,6 +2,7 @@ import { ContentSection, TermDefinition } from "@/lib/types";
 import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { ComparisonData } from "@/components/learn/KasanComparisonCard";
 import { SimulationData } from "@/components/learn/RevenueSimulator";
+import { DocumentFlowData } from "@/components/learn/DocumentFlow";
 
 // ===== 思想・背景 =====
 
@@ -184,5 +185,49 @@ export const kasanBasicsSimulation: SimulationData = {
     { name: "支援体制加算", unitPerDay: 60, monthlyAmount: 26.4, color: "cyan" },
     { name: "実績・工賃加算", unitPerDay: 40, monthlyAmount: 17.6, color: "amber" },
     { name: "生活支援等加算", unitPerDay: 102, monthlyAmount: 44.9, color: "emerald" },
+  ],
+};
+
+// ===== ビジュアル: 加算算定の書類フロー =====
+
+export const kasanBasicsDocumentFlow: DocumentFlowData = {
+  heading: "加算算定の流れ（届出から請求まで）",
+  description: "加算を算定するために必要な手続きのステップ",
+  steps: [
+    {
+      step: 1,
+      title: "算定要件の確認",
+      description: "各加算の要件（人員基準・実績・体制等）を満たしているか確認",
+      documents: ["算定要件チェックリスト", "人員配置表", "前年度実績データ"],
+      color: "blue",
+    },
+    {
+      step: 2,
+      title: "体制届の提出",
+      description: "指定権者（都道府県・市町村）に加算の届出書類を提出。受理後、翌月から算定開始",
+      documents: ["体制等に関する届出書", "人員配置の根拠資料", "加算ごとの添付書類"],
+      color: "green",
+    },
+    {
+      step: 3,
+      title: "日々の記録・支援の実施",
+      description: "加算の要件に沿った支援を実施し、エビデンスとなる記録を残す",
+      documents: ["サービス提供記録", "出勤簿", "個別支援計画", "各加算固有の記録"],
+      color: "amber",
+    },
+    {
+      step: 4,
+      title: "月次の国保連請求",
+      description: "毎月10日までに国保連へ請求。加算のサービスコードを含めて提出",
+      documents: ["請求明細書", "サービス提供実績記録票", "利用者負担額一覧表"],
+      color: "violet",
+    },
+    {
+      step: 5,
+      title: "実績報告・見直し",
+      description: "年度末に実績を集計し、翌年度の体制届の変更が必要か確認",
+      documents: ["年度実績報告書", "処遇改善実績報告書", "工賃向上計画の振り返り"],
+      color: "rose",
+    },
   ],
 };

@@ -12,6 +12,9 @@ import TopicSummaryBar from "@/components/learn/TopicSummaryBar";
 import KasanComparisonCard from "@/components/learn/KasanComparisonCard";
 import DailyTimeline from "@/components/learn/DailyTimeline";
 import RevenueSimulator from "@/components/learn/RevenueSimulator";
+import KasanCalendar from "@/components/learn/KasanCalendar";
+import StaffingMap from "@/components/learn/StaffingMap";
+import DocumentFlow from "@/components/learn/DocumentFlow";
 import { getTopicContent, TopicContent } from "@/data/content-loader";
 import { getService } from "@/data/services";
 import { getServiceColors } from "@/lib/service-colors";
@@ -54,7 +57,7 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
     );
   }
 
-  const hasVisuals = content.timeline || (content.comparisons && content.comparisons.length > 0) || content.simulation;
+  const hasVisuals = content.timeline || (content.comparisons && content.comparisons.length > 0) || content.simulation || content.calendar || content.staffingMap || content.documentFlow;
 
   return (
     <>
@@ -80,6 +83,9 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
             <KasanComparisonCard key={comp.heading} data={comp} />
           ))}
           {content.simulation && <RevenueSimulator data={content.simulation} />}
+          {content.calendar && <KasanCalendar data={content.calendar} />}
+          {content.staffingMap && <StaffingMap data={content.staffingMap} />}
+          {content.documentFlow && <DocumentFlow data={content.documentFlow} />}
         </div>
       )}
 

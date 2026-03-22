@@ -4,6 +4,7 @@ import { PhilosophyItem } from "@/components/learn/PhilosophyBlock";
 import { RevenueItem } from "@/components/learn/RevenueTable";
 import { ComparisonData } from "@/components/learn/KasanComparisonCard";
 import { SimulationData } from "@/components/learn/RevenueSimulator";
+import { StaffingMapData } from "@/components/learn/StaffingMap";
 
 // ===== 思想・背景 =====
 
@@ -316,5 +317,57 @@ export const staffingSimulation: SimulationData = {
     { name: "6:1配置の基本報酬差額", unitPerDay: 31, monthlyAmount: 13.6, color: "blue" },
     { name: "福祉専門職員配置等加算(I)", unitPerDay: 15, monthlyAmount: 6.6, color: "indigo" },
     { name: "福祉専門職員配置等加算(III)", unitPerDay: 6, monthlyAmount: 2.6, color: "teal" },
+  ],
+};
+
+// ===== ビジュアル: 人員配置マップ =====
+
+export const staffingStaffingMap: StaffingMapData = {
+  heading: "B型事業所の人員配置と関連加算",
+  description: "各職種の配置要件と、その配置から発生する加算の関係を一目で確認",
+  baseRequirement: "職業指導員 + 生活支援員 = 利用者7.5人に1人以上（うち1人以上常勤）。サービス管理責任者 = 利用者60人に1人以上",
+  roles: [
+    {
+      role: "職業指導員",
+      count: "常勤換算で配置",
+      requirement: "生産活動・職業訓練を指導。6:1配置でサービス費(I)(IV)の高い基本報酬",
+      relatedKasan: ["サービス費(I)(IV)差額+31単位/日", "福祉専門職員配置等加算"],
+      color: "blue",
+    },
+    {
+      role: "生活支援員",
+      count: "常勤換算で配置",
+      requirement: "日常生活上の支援を担当。職業指導員と合わせて配置基準を満たす",
+      relatedKasan: ["サービス費(I)(IV)差額+31単位/日", "福祉専門職員配置等加算"],
+      color: "green",
+    },
+    {
+      role: "目標工賃達成指導員",
+      count: "常勤1名以上",
+      requirement: "工賃向上のための専任指導員。営業・受注・品質管理を担当。6:1配置のサービス費(I)(IV)のみ",
+      relatedKasan: ["目標工賃達成指導員配置加算 45単位/日"],
+      color: "violet",
+    },
+    {
+      role: "サービス管理責任者",
+      count: "利用者60人に1人",
+      requirement: "個別支援計画の作成・管理、サービス提供のプロセス管理を担当",
+      relatedKasan: ["個別支援計画未作成で減算リスク"],
+      color: "amber",
+    },
+    {
+      role: "看護職員（連携）",
+      count: "訪問対応可",
+      requirement: "常勤配置は不要。医療機関との連携体制を確保し、訪問による健康管理",
+      relatedKasan: ["医療連携体制加算(I) 32単位/日"],
+      color: "rose",
+    },
+    {
+      role: "ピアサポーター",
+      count: "任意配置",
+      requirement: "障害当事者で専門研修修了者。利用者への当事者目線の支援",
+      relatedKasan: ["ピアサポート実施加算 100単位/月"],
+      color: "cyan",
+    },
   ],
 };
