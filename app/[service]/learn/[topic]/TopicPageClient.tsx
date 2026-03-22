@@ -8,6 +8,7 @@ import RequirementTable from "@/components/learn/RequirementTable";
 import PhilosophyBlock from "@/components/learn/PhilosophyBlock";
 import PracticeGuide from "@/components/learn/PracticeGuide";
 import RevenueTable from "@/components/learn/RevenueTable";
+import TopicSummaryBar from "@/components/learn/TopicSummaryBar";
 import KasanComparisonCard from "@/components/learn/KasanComparisonCard";
 import DailyTimeline from "@/components/learn/DailyTimeline";
 import RevenueSimulator from "@/components/learn/RevenueSimulator";
@@ -39,8 +40,8 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
     return (
       <div className="space-y-4 py-12">
         <div className="h-8 w-48 bg-gray-200 rounded animate-pulse" />
+        <div className="h-24 bg-gray-100 rounded-xl animate-pulse" />
         <div className="h-48 bg-gray-100 rounded-xl animate-pulse" />
-        <div className="h-32 bg-gray-100 rounded-xl animate-pulse" />
       </div>
     );
   }
@@ -57,9 +58,13 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
 
   return (
     <>
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6">{topicLabel}</h1>
+      {/* 1. タイトル */}
+      <h1 className="text-2xl font-bold mb-4">{topicLabel}</h1>
 
-      {/* 1. 思想（コンパクトに） */}
+      {/* 2. サマリーバー（KPI的な全体指標を最初に） */}
+      <TopicSummaryBar revenue={content.revenue} colors={colors} />
+
+      {/* 3. 思想（コンパクト・折りたたみ式） */}
       <PhilosophyBlock
         heading={content.philosophy.heading}
         lead={content.philosophy.lead}
@@ -67,9 +72,9 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
         colors={colors}
       />
 
-      {/* 2. ビジュアルセクション（最初にイメージを掴ませる） */}
+      {/* 4. ビジュアル（タイムライン→比較→シミュレーション） */}
       {hasVisuals && (
-        <div className="mb-8">
+        <div className="mb-6">
           {content.timeline && <DailyTimeline data={content.timeline} />}
           {content.comparisons && content.comparisons.map((comp) => (
             <KasanComparisonCard key={comp.heading} data={comp} />
@@ -78,34 +83,31 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
         </div>
       )}
 
-      {/* 3. 収益テーブル（ビジュアルの直後に実務情報） */}
+      {/* 5. 収益テーブル */}
       {content.revenue && content.revenue.length > 0 && (
         <SectionBlock title="収益インパクトと取得難易度" colors={colors}>
           <RevenueTable items={content.revenue} />
         </SectionBlock>
       )}
 
-      {/* 4. 算定要件（2カラムグリッドで見やすく） */}
+      {/* 6. 算定要件（2カラム） */}
       {content.requirements && content.requirements.length > 0 && (
         <SectionBlock title="算定要件まとめ" colors={colors}>
           <RequirementTable items={content.requirements} />
         </SectionBlock>
       )}
 
-      {/* 5. 実践ガイド */}
+      {/* 7. 実践ガイド */}
       {content.practice && content.practice.length > 0 && (
         <SectionBlock title="条件・記録・支援の実践ガイド" colors={colors}>
-          <p className="text-sm text-gray-600 mb-4">
-            加算を「取る」だけでなく「維持する」ために、日々の記録と支援をセットで押さえましょう。
-          </p>
           <PracticeGuide items={content.practice} />
         </SectionBlock>
       )}
 
-      {/* 6. 詳細解説（折りたたみ式で長文を隠す） */}
+      {/* 8. 詳細解説（折りたたみ） */}
       {content.sections.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-base font-bold text-gray-900 mb-3">詳細解説</h2>
+        <div className="mb-6">
+          <h2 className="text-sm font-bold text-gray-500 mb-2">詳細解説</h2>
           {content.sections.map((section, i) => (
             <CollapsibleSection
               key={section.title}
@@ -119,7 +121,7 @@ export default function TopicPageClient({ serviceId, topicId, topicLabel }: Prop
         </div>
       )}
 
-      {/* 7. 用語集（最後に参照用） */}
+      {/* 9. 用語集 */}
       <SectionBlock title="主要用語" colors={colors}>
         <TermGrid terms={content.terms} colors={colors} />
       </SectionBlock>

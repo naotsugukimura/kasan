@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { ServiceColorSet } from "@/lib/service-colors";
 
 export type PhilosophyItem = {
@@ -17,6 +20,7 @@ export default function PhilosophyBlock({
   items: PhilosophyItem[];
   colors?: ServiceColorSet;
 }) {
+  const [expanded, setExpanded] = useState(false);
   const gradFrom = colors?.gradientFrom || "from-blue-50";
   const gradTo = colors?.gradientTo || "to-indigo-50";
   const border = colors?.lightBorder || "border-blue-200";
@@ -24,27 +28,38 @@ export default function PhilosophyBlock({
   const subColor = colors?.subheading || "text-blue-700";
 
   return (
-    <div className={`mb-8 bg-gradient-to-br ${gradFrom} ${gradTo} rounded-2xl p-6 sm:p-8 border ${border}`}>
-      <h2 className={`text-xl font-bold mb-2 ${headingColor}`}>{heading}</h2>
-      <p className={`text-sm ${subColor} mb-5 leading-relaxed`}>{lead}</p>
-      <div className="space-y-3">
-        {items.map((item) => (
-          <div
-            key={item.title}
-            className="bg-white/80 rounded-xl p-4 border border-white/60 shadow-sm"
-          >
-            <div className="flex items-start gap-3">
-              <span className="text-2xl shrink-0">{item.icon}</span>
-              <div>
-                <h3 className="font-bold text-sm mb-1">{item.title}</h3>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {item.content}
-                </p>
+    <div className={`mb-6 bg-gradient-to-br ${gradFrom} ${gradTo} rounded-xl p-5 border ${border}`}>
+      <h2 className={`text-base font-bold mb-1.5 ${headingColor}`}>{heading}</h2>
+      <p className={`text-xs ${subColor} leading-relaxed`}>{lead}</p>
+
+      {!expanded ? (
+        <button
+          onClick={() => setExpanded(true)}
+          className={`mt-2 text-xs ${subColor} hover:underline font-medium`}
+        >
+          設計思想の詳細を見る ({items.length}項目) →
+        </button>
+      ) : (
+        <>
+          <div className="mt-3 space-y-2">
+            {items.map((item) => (
+              <div
+                key={item.title}
+                className="bg-white/70 rounded-lg p-3 border border-white/50"
+              >
+                <h3 className="font-bold text-xs mb-0.5">{item.title}</h3>
+                <p className="text-xs text-gray-600 leading-relaxed">{item.content}</p>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+          <button
+            onClick={() => setExpanded(false)}
+            className={`mt-2 text-xs ${subColor} hover:underline font-medium`}
+          >
+            閉じる
+          </button>
+        </>
+      )}
     </div>
   );
 }
